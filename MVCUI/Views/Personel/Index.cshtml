@@ -1,0 +1,41 @@
+﻿@model List<MVCUI.Models.EntityFramework.Personel>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<a class="btn btn-success" href="/Personel/Yeni">Yeni Personel</a> 
+<h2>Personel Listesi</h2>
+<table class="table table-bordered" id="tblPersoneller">
+    <thead>
+        <tr>
+            <th>Ad</th>
+            <th>Soyad</th>
+            <th>Departman</th>
+            <th>Yaş</th>
+            <th>Maaş</th>
+            <th>Doğum Tarihi</th>
+            <th>Cinsiyet</th>
+            <th>Evlilik Durumu</th>
+            <th>Güncelle</th>
+            <th>Sil</th>
+    </thead>
+    <tbody>
+        @foreach(var personel in Model)
+        {
+            <tr>
+                <td>@personel.Ad</td>
+                <td>@personel.Soyad</td>
+                <td>@personel.Departman.Ad</td>
+                <td>@(DateTime.Now.Year-personel.DogumTarihi.Value.Year)</td>
+                <td>@personel.Maas</td>
+                <td>@personel.DogumTarihi.Value.ToString("dd-MM-yyyy")</td>
+                <td>@(personel.Cinsiyet==true?"Erkek":"Kadın")</td>
+                <td>@(personel.EvliMi==true?"Evli":"Bekar")</td>
+                <td><a class="btn btn-primary" href="/Personel/Guncelle/@personel.Id">Güncelle</a> </td>
+                <td><button class="btn btn-danger PersonelSil" data-id="@personel.Id">Sil</button> </td>
+            </tr>
+        }
+    </tbody>
+</table>

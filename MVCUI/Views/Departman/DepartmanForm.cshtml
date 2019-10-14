@@ -1,0 +1,17 @@
+﻿@model MVCUI.Models.EntityFramework.Departman
+@{
+    ViewBag.Title = "Departman";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@using (Html.BeginForm("Kaydet", "Departman", FormMethod.Post))
+{ 
+    <div class="form-group">
+        @Html.LabelFor(m=>m.Ad)
+        @Html.TextBoxFor(m => m.Ad, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m=>m.Ad)
+    </div>
+    @Html.HiddenFor(m=> m.Id)
+    <button type="submit" class="btn btn-success">Kaydet</button>
+}
