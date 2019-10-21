@@ -11,24 +11,18 @@ namespace MVCUI.Models.EntityFramework
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
     
     public partial class Personel
     {
         public int Id { get; set; }
-
-        [Display(Name="Departman Adý")]
         public Nullable<int> DepartmanId { get; set; }
-
         public string Ad { get; set; }
         public string Soyad { get; set; }
-        [Display(Name = "Maaþ")]
         public Nullable<short> Maas { get; set; }
-        [Display(Name = "Doðum Tarihi")]
         public Nullable<System.DateTime> DogumTarihi { get; set; }
         public bool Cinsiyet { get; set; }
-        [Display(Name = "Evlilik Durumu")]
         public bool EvliMi { get; set; }
+        public Nullable<byte> Yas { get; set; }
     
         public virtual Departman Departman { get; set; }
     }

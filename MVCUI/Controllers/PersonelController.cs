@@ -14,7 +14,7 @@ namespace MVCUI.Controllers
         //
         // GET: /Personel/
 
-        PersonelDbEntities db = new PersonelDbEntities();
+        PersonelDbEntity db = new PersonelDbEntity();
 
         public ActionResult Index()
         {
@@ -28,7 +28,8 @@ namespace MVCUI.Controllers
         {
             var model = new PersonelFormViewModel()
             {
-                Departmanlar = db.Departman.ToList()
+                Departmanlar = db.Departman.ToList(),
+                Personel = new Personel()
             };
             return View("PersonelForm",model);
         }
@@ -37,7 +38,16 @@ namespace MVCUI.Controllers
 
         public ActionResult Kaydet(Personel personel)
         {
-            
+            if (!ModelState.IsValid)
+            {
+                var model = new PersonelFormViewModel()
+                {
+                    Departmanlar = db.Departman.ToList(),
+                    Personel = personel
+                };
+                return View("PersonelForm", model);
+            }
+
             if (personel.Id == 0)// Personel Ekleme
             {
                 db.Personel.Add(personel);

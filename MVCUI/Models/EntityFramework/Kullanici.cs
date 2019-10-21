@@ -12,16 +12,11 @@ namespace MVCUI.Models.EntityFramework
     using System;
     using System.Collections.Generic;
     
-    public partial class Departman
+    public partial class Kullanici
     {
-        public Departman()
-        {
-            this.Personel = new HashSet<Personel>();
-        }
-    
         public int Id { get; set; }
         public string Ad { get; set; }
-    
-        public virtual ICollection<Personel> Personel { get; set; }
+        public string Sifre { get; set; }
+        public string Rol { get; set; }
     }
 }

@@ -13,10 +13,10 @@ namespace MVCUI.Models.EntityFramework
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class PersonelDbEntities : DbContext
+    public partial class PersonelDbEntity : DbContext
     {
-        public PersonelDbEntities()
-            : base("name=PersonelDbEntities")
+        public PersonelDbEntity()
+            : base("name=PersonelDbEntity")
         {
             this.Configuration.LazyLoadingEnabled = false;
         }
@@ -28,5 +28,6 @@ namespace MVCUI.Models.EntityFramework
     
         public DbSet<Departman> Departman { get; set; }
         public DbSet<Personel> Personel { get; set; }
+        public DbSet<Kullanici> Kullanici { get; set; }
     }
 }

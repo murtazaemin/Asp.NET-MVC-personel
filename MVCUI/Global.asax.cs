@@ -14,8 +14,8 @@ namespace MVCUI
     {
         protected void Application_Start()
         {
+            GlobalFilters.Filters.Add(new System.Web.Mvc.AuthorizeAttribute());
             AreaRegistration.RegisterAllAreas();
-
             WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);

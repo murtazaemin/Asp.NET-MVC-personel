@@ -20,6 +20,8 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <Use64BitIISExpress />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -121,10 +123,14 @@
   <ItemGroup>
     <Compile Include="Controllers\DepartmanController.cs" />
     <Compile Include="Controllers\PersonelController.cs" />
+    <Compile Include="Controllers\SecurityController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\EntityFramework\Departman.cs">
+      <DependentUpon>PersonelModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EntityFramework\Kullanici.cs">
       <DependentUpon>PersonelModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EntityFramework\Personel.cs">
@@ -239,6 +245,7 @@
     <Content Include="Views\Departman\DepartmanForm.cshtml" />
     <Content Include="Views\Personel\Index.cshtml" />
     <Content Include="Views\Personel\PersonelForm.cshtml" />
+    <Content Include="Views\Security\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

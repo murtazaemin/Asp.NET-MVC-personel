@@ -9,10 +9,10 @@ namespace MVCUI.Controllers
 {
     public class DepartmanController : Controller
     {
-        PersonelDbEntities db = new PersonelDbEntities();
+        PersonelDbEntity db = new PersonelDbEntity();
         //
         // GET: /Departman/
-
+        [Authorize]
         public ActionResult Index()
         {
             var model = db.Departman.ToList();

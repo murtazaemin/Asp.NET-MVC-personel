@@ -4,38 +4,40 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="PersonelDbModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityContainer Name="PersonelDbModelStoreContainer">
-          <EntitySet Name="Departman" EntityType="PersonelDbModel.Store.Departman" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Personel" EntityType="PersonelDbModel.Store.Personel" store:Type="Tables" Schema="dbo" />
-          <AssociationSet Name="FK_Personel_Departman" Association="PersonelDbModel.Store.FK_Personel_Departman">
-            <End Role="Departman" EntitySet="Departman" />
-            <End Role="Personel" EntitySet="Personel" />
-          </AssociationSet>
-        </EntityContainer>
+    <Schema Namespace="PersonelDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Departman">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Ad" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Kullanici">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Ad" Type="nvarchar" MaxLength="50" />
+          <Property Name="Sifre" Type="nvarchar" MaxLength="50" />
+          <Property Name="Rol" Type="nchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="Personel">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DepartmanId" Type="int" />
           <Property Name="Ad" Type="nvarchar" MaxLength="50" />
           <Property Name="Soyad" Type="nvarchar" MaxLength="50" />
+          <Property Name="Yas" Type="tinyint" />
           <Property Name="Maas" Type="smallint" />
           <Property Name="DogumTarihi" Type="smalldatetime" />
           <Property Name="Cinsiyet" Type="bit" Nullable="false" />
           <Property Name="EvliMi" Type="bit" Nullable="false" />
         </EntityType>
         <Association Name="FK_Personel_Departman">
-          <End Role="Departman" Type="PersonelDbModel.Store.Departman" Multiplicity="0..1" />
-          <End Role="Personel" Type="PersonelDbModel.Store.Personel" Multiplicity="*" />
+          <End Role="Departman" Type="Self.Departman" Multiplicity="0..1" />
+          <End Role="Personel" Type="Self.Personel" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Departman">
               <PropertyRef Name="Id" />
@@ -45,17 +47,27 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityContainer Name="PersonelDbModelStoreContainer">
+          <EntitySet Name="Departman" EntityType="Self.Departman" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Kullanici" EntityType="Self.Kullanici" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Personel" EntityType="Self.Personel" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Personel_Departman" Association="Self.FK_Personel_Departman">
+            <End Role="Departman" EntitySet="Departman" />
+            <End Role="Personel" EntitySet="Personel" />
+          </AssociationSet>
+        </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="PersonelDbModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityContainer Name="PersonelDbEntities2" p1:LazyLoadingEnabled="false">
+        <EntityContainer Name="PersonelDbEntity" p1:LazyLoadingEnabled="false">
           <EntitySet Name="Departman" EntityType="PersonelDbModel.Departman" />
           <EntitySet Name="Personel" EntityType="PersonelDbModel.Personel" />
           <AssociationSet Name="FK_Personel_Departman" Association="PersonelDbModel.FK_Personel_Departman">
             <End Role="Departman" EntitySet="Departman" />
             <End Role="Personel" EntitySet="Personel" />
           </AssociationSet>
+          <EntitySet Name="Kullanici" EntityType="PersonelDbModel.Kullanici" />
         </EntityContainer>
         <EntityType Name="Departman">
           <Key>
@@ -78,6 +90,7 @@
           <Property Type="Boolean" Name="Cinsiyet" Nullable="false" />
           <Property Type="Boolean" Name="EvliMi" Nullable="false" />
           <NavigationProperty Name="Departman" Relationship="PersonelDbModel.FK_Personel_Departman" FromRole="Personel" ToRole="Departman" />
+          <Property Name="Yas" Type="Byte" />
         </EntityType>
         <Association Name="FK_Personel_Departman">
           <End Type="PersonelDbModel.Departman" Role="Departman" Multiplicity="0..1" />
@@ -91,12 +104,21 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Kullanici">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Ad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Sifre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Rol" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="PersonelDbModelStoreContainer" CdmEntityContainer="PersonelDbEntities2">
+        <EntityContainerMapping StorageEntityContainer="PersonelDbModelStoreContainer" CdmEntityContainer="PersonelDbEntity">
           <EntitySetMapping Name="Departman">
             <EntityTypeMapping TypeName="PersonelDbModel.Departman">
               <MappingFragment StoreEntitySet="Departman">
@@ -108,6 +130,7 @@
           <EntitySetMapping Name="Personel">
             <EntityTypeMapping TypeName="PersonelDbModel.Personel">
               <MappingFragment StoreEntitySet="Personel">
+                <ScalarProperty Name="Yas" ColumnName="Yas" />
                 <ScalarProperty Name="EvliMi" ColumnName="EvliMi" />
                 <ScalarProperty Name="Cinsiyet" ColumnName="Cinsiyet" />
                 <ScalarProperty Name="DogumTarihi" ColumnName="DogumTarihi" />
@@ -115,6 +138,16 @@
                 <ScalarProperty Name="Soyad" ColumnName="Soyad" />
                 <ScalarProperty Name="Ad" ColumnName="Ad" />
                 <ScalarProperty Name="DepartmanId" ColumnName="DepartmanId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Kullanici">
+            <EntityTypeMapping TypeName="PersonelDbModel.Kullanici">
+              <MappingFragment StoreEntitySet="Kullanici">
+                <ScalarProperty Name="Rol" ColumnName="Rol" />
+                <ScalarProperty Name="Sifre" ColumnName="Sifre" />
+                <ScalarProperty Name="Ad" ColumnName="Ad" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -136,6 +169,7 @@
         <DesignerProperty Name="EnablePluralization" Value="False" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="True" />
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->

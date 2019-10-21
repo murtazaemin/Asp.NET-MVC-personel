@@ -1,0 +1,36 @@
+﻿@model MVCUI.Models.EntityFramework.Kullanici
+@{
+   Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+</head>
+<body>
+    <div class="card">
+        <article class="card-body">
+            <h4 class="card-title text-center mb-4 mt-1">Sign in</h4>
+            @ViewBag.Mesaj
+            @using (Html.BeginForm("Login", "Security", FormMethod.Post))
+            {
+                <div class="form-group">
+                    @Html.TextBoxFor(m => m.Ad, new { @class = "form-control", placeholder = "Username", type = "text", required = "required" })
+                </div> <!-- form-group// -->
+                <div class="form-group">
+                    @Html.TextBoxFor(m => m.Sifre, new { @class = "form-control", placeholder = "*****", type = "password", required = "required" })
+                </div> <!-- form-group// -->
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-block"> Login  </button>
+                </div> <!-- form-group// -->
+            }
+
+            <p>Kullanıcı Adı:Admin   Şifre:12345</p>
+
+        </article>
+    </div> <!-- card.// -->
+</body>
+</html>

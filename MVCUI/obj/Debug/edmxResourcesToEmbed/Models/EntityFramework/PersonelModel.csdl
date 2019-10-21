@@ -1,12 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="PersonelDbModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-  <EntityContainer Name="PersonelDbEntities2" p1:LazyLoadingEnabled="false">
+  <EntityContainer Name="PersonelDbEntity" p1:LazyLoadingEnabled="false">
     <EntitySet Name="Departman" EntityType="PersonelDbModel.Departman" />
     <EntitySet Name="Personel" EntityType="PersonelDbModel.Personel" />
     <AssociationSet Name="FK_Personel_Departman" Association="PersonelDbModel.FK_Personel_Departman">
       <End Role="Departman" EntitySet="Departman" />
       <End Role="Personel" EntitySet="Personel" />
     </AssociationSet>
+    <EntitySet Name="Kullanici" EntityType="PersonelDbModel.Kullanici" />
   </EntityContainer>
   <EntityType Name="Departman">
     <Key>
@@ -29,6 +30,7 @@
     <Property Type="Boolean" Name="Cinsiyet" Nullable="false" />
     <Property Type="Boolean" Name="EvliMi" Nullable="false" />
     <NavigationProperty Name="Departman" Relationship="PersonelDbModel.FK_Personel_Departman" FromRole="Personel" ToRole="Departman" />
+    <Property Name="Yas" Type="Byte" />
   </EntityType>
   <Association Name="FK_Personel_Departman">
     <End Type="PersonelDbModel.Departman" Role="Departman" Multiplicity="0..1" />
@@ -42,4 +44,13 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityType Name="Kullanici">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Ad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Sifre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Rol" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+  </EntityType>
 </Schema>
